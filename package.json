@@ -1,0 +1,23 @@
+{
+  "name": "dependencytreenavigator",
+  "version": "1.0.0",
+  "description": "Navigate through the dependency tree of a npm module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndJustisForAll/dependencyTreeNavigator.git"
+  },
+  "author": "Angel Munoz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndJustisForAll/dependencyTreeNavigator/issues"
+  },
+  "homepage": "https://github.com/AndJustisForAll/dependencyTreeNavigator#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "moment": "^2.21.0"
+  }
+}
