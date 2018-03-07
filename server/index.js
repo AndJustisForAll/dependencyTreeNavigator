@@ -2,7 +2,7 @@ const express = require("express");
 const { performance } = require("perf_hooks");
 const { execSync } = require("child_process");
 const moment = require("moment");
-const mockResponse = require('./mockResponse');
+const mockResponse = require("./mockResponse");
 
 const app = express();
 
@@ -26,8 +26,8 @@ app.get("/module/:moduleName", (req, res) => {
 });
 
 //Mock
-app.get('/mock/', (req, res) => {
-   res.json(mockResponse); 
+app.get("/mock/", (req, res) => {
+  res.json(mockResponse);
 });
 
 function buildDependencyTree(dependencyTree) {
