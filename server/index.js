@@ -7,40 +7,49 @@ const app = express();
 
 app.get("/module/:moduleName", (req, res) => {
   const moduleName = req.params.moduleName || "";
+  const rootModuleJSON = getModuleJSON(moduleName);
   var dependencyTree = {
-    [moduleName]: {}
+    [moduleName]: rootModuleJSON
   };
 
   performance.mark("A");
-  buildDependencyTree(dependencyTree[moduleName], moduleName);
+  buildDependencyTree(dependencyTree[moduleName]);
   performance.mark("B");
   performance.measure("A to B", "A", "B");
   const entries = performance.getEntriesByName("A to B") || [];
   if (entries[0]) {
     const duration = moment.duration(entries[0].duration) || {};
-    console.log(`${moduleName}: duration.seconds() seconds`);
+    console.log(`${moduleName}: ${duration.seconds()} seconds`);
   }
   res.json(dependencyTree);
 });
 
-function buildDependencyTree(dependencyTree, moduleName, isRoot = true) {
-  const dependencies = getModuleJSON(moduleName);
+function buildDependencyTree(dependencyTree) {
+    const dependencies = dependencyTree.dependencies;
   for (key in dependencies) {
-    dependencyTree[key] = { name: key, version: dependencies[key] };
-    buildDependencyTree(dependencyTree[key], key);
+    const moduleJSON = getModuleJSON(key);
+    dependencies[key] = moduleJSON;
+    buildDependencyTree(dependencies[key]);
   }
 }
 
 function getModuleJSON(moduleName) {
   const stdout =
-    execSync(`npm view ${moduleName} dependencies --json`, {
+    execSync(`npm view ${moduleName} --json`, {
       encoding: "utf-8"
     }) || {};
 
   if (Object.keys(stdout).length === 0 && stdout.constructor === Object) {
     return {};
   }
-  return JSON.parse(stdout);
+  const moduleJSON = JSON.parse(stdout);
+  return {
+    name: moduleJSON.name,
+    author: moduleJSON.author,
+    dependencies: moduleJSON.dependencies,
+    description: moduleJSON.description,
+    version: moduleJSON.version
+  };
 }
 
 const PORT = process.env.PORT || 5000;
