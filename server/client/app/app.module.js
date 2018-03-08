@@ -2,6 +2,7 @@
 var dependencyTreeApp = angular.module('dependencyTreeApp', [
     'dependencySearch',
     //'otherDepenency',
-    'ngRoute'
+    'ngRoute',
+    'core'
 ]);
 

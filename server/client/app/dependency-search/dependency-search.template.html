@@ -1,4 +1,6 @@
 <h1>Dependency Search</h1>
-{{$ctrl.npmModule}}
+{{$ctrl.data}}
 <input ng-model="$ctrl.query"/>
 <button ng-click="$ctrl.search()">Search</button>
+
+<bar-chart chart-data="$ctrl.data"></bar-chart>
