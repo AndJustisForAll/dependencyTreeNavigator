@@ -1,1 +1,4 @@
-<h1>HELLO {{$ctrl.query}}</h1>
+<h1>Dependency Search</h1>
+{{$ctrl.npmModule}}
+<input ng-model="$ctrl.query"/>
+<button ng-click="$ctrl.search()">Search</button>

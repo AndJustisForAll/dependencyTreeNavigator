@@ -1,1 +1,1 @@
-angular.module('dependencySearch', []);
+angular.module('dependencySearch', ['core.dependencies']);

@@ -1,3 +1,2 @@
-angular.module('core', 
-//dependent modules    ['core.phone']
-[]);
+angular.module('core', ['core.dependencies']);
+
